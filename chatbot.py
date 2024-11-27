@@ -1,5 +1,8 @@
+import tkinter as tk
+from tkinter import scrolledtext
 import random
 
+# Bot response logic
 def get_random_response(user_input):
 
     responses = {
@@ -35,21 +38,44 @@ def get_random_response(user_input):
     # Default response if keyword does not match
     return "Don't know what you mean human."
 
-# Just calls get_random_response
-def chatbot_response(user_input):
-    return get_random_response(user_input)      
-       
-#Main script
-if __name__ == "__main__":
+# Handles user input and display chatbot's response
+def handle_input():
     
-    print("Chatbot: Hi! I'm your friendly (or sarcastic) chatbot!")
+    user_input = input_field.get()
     
-    while True:
-        
-        user_input = input("You: ")
-        
-        if user_input.lower() in ["bye", "exit", "quit"]:
-            print("Chatbot: Goodbye!")
-            break
-        
-        print("Chatbot:", chatbot_response(user_input))
+    if user_input.lower() in ["bye", "exit", "quit"]:
+        chat_area.insert(tk.END, "Chatbot: Goodbye human!\n")
+        window.destroy()
+        return
+    
+    #Display user input
+    chat_area.insert(tk.END, f"You: {user_input}\n")
+
+    #Get chatbot's response
+    response = get_random_response(user_input)
+    chat_area.insert(tk.END, f"Chatbot: {response}\n")
+    input_field.delete(0, tk.END) #Clears input field
+
+
+# Tkinter GUI Window
+window = tk.Tk()
+window.title("Chatbot")
+window.geometry("400x500")
+
+# Chat area 
+chat_area = scrolledtext.ScrolledText(window, wrap=tk.WORD, font=("Arial", 10), state="normal")
+chat_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+
+# Input field
+input_frame = tk.Frame(window)
+input_field = tk.Entry(input_frame, font=("Aria", 12))
+input_field.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
+send_button = tk.Button(input_frame, text="Send", command=handle_input)
+send_button.pack(side=tk.RIGHT, padx=5)
+input_frame.pack(pady=5, padx=10, fill=tk.X)
+
+# Inital greeting
+chat_area.insert(tk.END, "Chatbot: Hello human!")
+
+# Tkinter event loop
+window.mainloop()

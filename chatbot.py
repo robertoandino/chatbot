@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import scrolledtext
 import random
 
+#TO UPDATE .exe file
+#python -m PyInstaller --onefile --windowed chatbot_gui.py
+
 # Bot response logic
 def get_random_response(user_input):
 
@@ -16,10 +19,10 @@ def get_random_response(user_input):
             "I'm just a bot, but thanks for asking!",
             "Fantastic! I could run for days without getting tired."
         ],
-        "bye": [
-            "Goodbye! Come back soon!",
-            "See you later, human",
-            "Farewell! Don't forget to recharge."
+        "thoughts": [
+            "Is AI the future?",
+            "Is it possible to upload a brain to the net?",
+            "We'll we live in the net?"
         ],
         "joke": [
             "Why did the programmer quit his job? Because he didn't get arrays.",
@@ -60,18 +63,32 @@ def handle_input():
 # Tkinter GUI Window
 window = tk.Tk()
 window.title("Chatbot")
-window.geometry("400x500")
+window.geometry("500x600")
+window.configure(bg="#2c3e50")
 
 # Chat area 
-chat_area = scrolledtext.ScrolledText(window, wrap=tk.WORD, font=("Arial", 10), state="normal")
+chat_area = scrolledtext.ScrolledText(
+    window, wrap=tk.WORD, font=("Arial", 12), bg="#ecf0f1", fg="#2c3e50", state="normal"
+)
 chat_area.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
 # Input field
-input_frame = tk.Frame(window)
-input_field = tk.Entry(input_frame, font=("Aria", 12))
-input_field.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5)
-send_button = tk.Button(input_frame, text="Send", command=handle_input)
-send_button.pack(side=tk.RIGHT, padx=5)
+input_frame = tk.Frame(window, bg="#2c3e50")
+input_field = tk.Entry(
+    input_frame, font=("Arial", 12), bg="#bdc3c7", fg="#2c3e50", relief=tk.FLAT
+)
+input_field.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5),
+send_button = tk.Button(
+    input_frame, 
+    text="Send", 
+    command=handle_input,
+    bg="#3498db",
+    fg="white",
+    font=("Arial", 12, "bold"),
+    relief=tk.FLAT,
+    activebackground="#2980b9",
+)
+send_button.pack(side=tk.RIGHT, padx=5, pady=5)
 input_frame.pack(pady=5, padx=10, fill=tk.X)
 
 # Inital greeting

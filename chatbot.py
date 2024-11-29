@@ -38,7 +38,7 @@ def get_random_response(user_input):
             # Choose random response from the list
             return random.choice(responses[key])
         
-    # Default response if keyword does not match
+    # Default response if keyword does not match 
     return "Don't know what you mean human."
 
 # Handles user input and display chatbot's response
